@@ -11,4 +11,5 @@ Inspired by the [nerdy teachers platformer youtube tutorial](https://www.youtube
 # log
 
 day 1: made platformer basics and added art
+
 ![day 1](gifs/day_1.gif)
