@@ -22,7 +22,6 @@ function _init()
 		dy=0,
 		max_dx=2,
 		max_dy=3,
-		acc=0.5,
 		jump=3,
 		anim=0, --time
 		animi=0, -- index in frame
@@ -46,7 +45,12 @@ function _init()
 		r=8 * 127
 	}
 	gravity=0.3
-	friction=0.85
+	
+	
+	ground_fric=0.85
+	ground_acc =0.5
+	air_fric=0.99
+	air_acc =0.15
 end
 
 -->8
@@ -136,16 +140,22 @@ end
 -- player
 
 function player_update()
+	local fric=ground_fric
+	local acc =ground_acc
+	if pl.sjump or pl.sfall then
+		fric=air_fric
+		acc=air_acc
+	end
 	pl.dy += gravity
-	pl.dx *= friction
+	pl.dx *= fric
 	
 	if btn(⬅️) then
-	 pl.dx -= pl.acc
+	 pl.dx -= acc
 	 pl.srun = true
 	 pl.flp = true
 	end
 	if btn(➡️) then
-	 pl.dx += pl.acc
+	 pl.dx += acc
 	 pl.srun = true
 	 pl.flp = false
 	end
