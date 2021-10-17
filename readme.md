@@ -19,3 +19,7 @@ day 1: made platformer basics and added art
 day 2: added scrolling, fixed player collision issues, air friction, background image and exported playable to itch
 
 ![day 2](gifs/day_2.gif)
+
+day 3: added carrot pickups and falling outside
+
+![day 3](gifs/day_3.gif)
