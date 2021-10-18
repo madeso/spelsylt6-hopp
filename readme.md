@@ -23,3 +23,7 @@ day 2: added scrolling, fixed player collision issues, air friction, background 
 day 3: added carrot pickups and falling outside
 
 ![day 3](gifs/day_3.gif)
+
+day 4: can talk to hares now.
+
+![day 4](gifs/day_4.gif)
