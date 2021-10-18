@@ -171,8 +171,8 @@ function print_popup()
 end
 
 function sweprint(text, x, y, cc)
-	for i=1, #text do
-		local c = sub(text, i, i)
+	for i=0, #text-1 do
+		local c = sub(text, i+1, i+1)
 		local d = 0
 		if c=="…" then
 			print("a", x+i*4, y, cc)
