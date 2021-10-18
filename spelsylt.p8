@@ -18,7 +18,7 @@ end
 function lvl_init()
 	har_text =
 	{
-		"hej kodsnack!",
+		"h░r …lar h∧rska!",
 		"spelsylt e najs"
 	}
 	pl = {
@@ -163,10 +163,36 @@ function print_popup()
 		spr(12, l+b+i*8,t)
 		spr(44, l+b+i*8,bt-8)
 	end
-	print(popup, l+16, 20, 7)
+	sweprint(popup, l+16, 20, 7)
 	
 	if blink % 2 == 0 then
 		print("🅾️", r-12, bt-10, 14)
+	end
+end
+
+function sweprint(text, x, y, cc)
+	for i=1, #text do
+		local c = sub(text, i, i)
+		local d = 0
+		if c=="…" then
+			print("a", x+i*4, y, cc)
+			d = 1
+		elseif c=="∧" then
+			print("a", x+i*4, y, cc)
+			d = 2
+		elseif c=="░" then
+			print("o", x+i*4, y, cc)
+			d = 2
+		else
+			print(c, x+i*4, y, cc)
+		end
+		
+		if d==1 then
+			print(".", x+i*4, y-6, cc)
+		elseif d==2 then
+			print(".", x+i*4-1, y-6, cc)
+			print(".", x+i*4+1, y-6, cc)
+		end
 	end
 end
 -->8
