@@ -51,6 +51,8 @@ function lvl_init()
 		r=8 * 127
 	}
 	gravity=0.3
+	blink = 0
+	blinkt = 0
 	
 	
 	ground_fric=0.85
@@ -77,6 +79,13 @@ function _update()
 	player_animate()
 	pickup_carrots()
 	update_harar()
+	
+	blinkt += dt
+	if blinkt>0.3 then
+		blinkt -= 0.3
+		blink = (blink + 1)%10
+	end
+	
 
 	-- camera logic
 	local cx = pl.x
@@ -332,8 +341,8 @@ function pickup_carrots()
 	do
 		local dx, dy
  	c=crts[i]
- 	dx = abs(c.x+4 - pl.x)
- 	dy = abs(c.y - pl.y)
+ 	dx = c.x+4 - pl.x
+ 	dy = c.y - pl.y
  	dx *= dx
  	dy *= dy
  	if (dx+dy) < 12 then
@@ -366,6 +375,7 @@ function setup_harar()
 				c.x = x*8
 				c.y = y*8
 				c.sp = 1
+				c.plclose=false
 				c.text = har_text[index]
 				c.anim=rnd(1) --time
 				c.animi=0 -- index in frame
@@ -381,6 +391,13 @@ function draw_harar()
 		local c = har[i]
 		local flp = c.x - pl.x > 0
 		spr(c.sp, c.x, c.y, 1,1, flp)
+		if c.plclose then
+			local cc = 0
+			if blink % 2 == 0 then
+				cc = 7
+				print("🅾️", c.x, c.y-7, cc)
+			end
+		end
 	end
 end
 
@@ -389,13 +406,14 @@ function update_harar()
 	do
 		local dx, dy
  	c=har[i]
- 	dx = abs(c.x+4 - pl.x)
- 	dy = abs(c.y - pl.y)
+ 	dx = c.x+4 - pl.x
+ 	dy = c.y - pl.y
  	dx *= dx
  	dy *= dy
  	anim(c, {1, 2}, 0.5)
- 	if (dx+dy) < 24 and btnp(🅾️) then
- 		dbg = "says " .. c.text
+ 	c.plclose=(dx+dy) < 200
+ 	if c.plclose and btnp(🅾️) then
+	 	dbg = "says " .. c.text
  	end
 	end
 	
