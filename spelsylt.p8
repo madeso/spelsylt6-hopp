@@ -163,11 +163,26 @@ function print_popup()
 		spr(12, l+b+i*8,t)
 		spr(44, l+b+i*8,bt-8)
 	end
-	sweprint(popup, l+16, 20, 7)
+	
+	local py = 22
+	if hasn(popup) then
+		py -= 4
+	end
+	sweprint(popup, l+16, py, 7)
 	
 	if blink % 2 == 0 then
 		print("🅾️", r-12, bt-10, 14)
 	end
+end
+
+function hasn(text)
+	for i=0, #text-1 do
+		local c = sub(text, i+1, i+1)
+		if c=="\n" then
+			return true
+		end
+	end
+	return false
 end
 
 function sweprint(text, ax, y, cc)
