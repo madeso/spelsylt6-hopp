@@ -10,6 +10,11 @@ Inspired by the [nerdy teachers platformer youtube tutorial](https://www.youtube
 
 [play now on itch.io](https://madeso.itch.io/hararna-fran-harlosa)
 
+# credits
+
+* Programming and art - Gustav "madeso" Jansson
+* Music - Stefan Forsberg
+
 # log
 
 day 1: made platformer basics and added art
@@ -27,3 +32,7 @@ day 3: added carrot pickups and falling outside
 day 4: can talk to hares now.
 
 ![day 4](gifs/day_4.gif)
+
+late night day 4: swedish characters
+
+day 5: playing looping music randomly, newlines and layout in dialog popup
