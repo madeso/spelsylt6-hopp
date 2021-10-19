@@ -12,7 +12,7 @@ Inspired by the [nerdy teachers platformer youtube tutorial](https://www.youtube
 
 # credits
 
-* Programming and art - Gustav "madeso" Jansson
+* Programming, sfx and art - Gustav "madeso" Jansson
 * Music - Stefan Forsberg
 
 # log
