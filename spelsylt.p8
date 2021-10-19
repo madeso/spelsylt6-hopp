@@ -18,7 +18,7 @@ end
 function lvl_init()
 	har_text =
 	{
-		"h░r …lar h∧rska!",
+		"hej kodsnack!\nh░r …lar h∧rska!",
 		"spelsylt e najs"
 	}
 	pl = {
@@ -170,28 +170,40 @@ function print_popup()
 	end
 end
 
-function sweprint(text, x, y, cc)
+function sweprint(text, ax, y, cc)
+	local ox = ax
+	local x = ax
+
 	for i=0, #text-1 do
 		local c = sub(text, i+1, i+1)
 		local d = 0
+		local step = true
 		if c=="…" then
-			print("a", x+i*4, y, cc)
+			print("a", x, y, cc)
 			d = 1
 		elseif c=="∧" then
-			print("a", x+i*4, y, cc)
+			print("a", x, y, cc)
 			d = 2
 		elseif c=="░" then
-			print("o", x+i*4, y, cc)
+			print("o", x, y, cc)
 			d = 2
+		elseif c=="\n" then
+			x = ox
+			y += 8
+			step = false
 		else
-			print(c, x+i*4, y, cc)
+			print(c, x, y, cc)
 		end
 		
 		if d==1 then
-			print(".", x+i*4, y-6, cc)
+			print(".", x, y-6, cc)
 		elseif d==2 then
-			print(".", x+i*4-1, y-6, cc)
-			print(".", x+i*4+1, y-6, cc)
+			print(".", x-1, y-6, cc)
+			print(".", x+1, y-6, cc)
+		end
+		
+		if step then
+			x += 4
 		end
 	end
 end
