@@ -85,7 +85,7 @@ end
 
 function play_music(m)
 	if m != music_index then
-		music(m)
+		-- music(m)
 	end
 	music_index = m
 end
@@ -471,16 +471,14 @@ function pickup_carrots()
 	do
 		local dx, dy
  	c=crts[i]
- 	dx = c.x+4 - pl.x
- 	dy = c.y - pl.y
- 	dx *= dx
- 	dy *= dy
- 	if (dx+dy) < 12 then
+ 	dx = abs(c.x+4 - pl.x)
+ 	dy = abs(c.y - pl.y)
+ 	if (dx+dy) < 4 then
  		r = i
  	end
 	end
 	
-	if r ~= nil then
+	if r != nil then
 		deli(crts, r)
 		p_car += 1
 		sfx_car()
@@ -533,24 +531,32 @@ function draw_harar()
 end
 
 function update_harar()
+	local mdis = 1000
+	local closest = nil
 	for i=1,#har
 	do
 		local dx, dy
  	c=har[i]
- 	dx = c.x+4 - pl.x
- 	dy = c.y - pl.y
- 	dx *= dx
- 	dy *= dy
+ 	dx = abs(c.x+4 - pl.x)
+ 	dy = abs(c.y - pl.y)
  	anim(c, {1, 2}, 0.5)
- 	c.plclose=(dx+dy) < 300
- 	if c.plclose and btnp(🅾️) then
-	 	popup = c.text
+ 	c.plclose = false
+ 	local dis = dx+dy
+ 	if dis < mdis then
+ 		mdis = dis
+ 		closest = i
  	end
 	end
 	
-	if r ~= nil then
-		deli(crts, r)
-		p_car += 1
+	if closest != nil then
+		local c = har[closest]
+		if mdis < 32 then
+			c.plclose = true
+			
+			if btnp(🅾️) then
+		 	popup = c.text
+		 end
+		end
 	end
 end
 __gfx__
