@@ -363,9 +363,10 @@ function _draw()
 	draw_carrots()
 	draw_harar()
 	spr(pl.sp, pl.x-(8-pl.w)/2, pl.y+o,1,1,pl.flp)
-	if p_car > 0 then
-		print(p_car, 2+cam.cx, 0, 7)
-	end
+	--if p_car > 0 then
+		spr(17, 2+cam.cx, 0)
+		print(p_car, 2+5+cam.cx, 0, 7)
+	--end
 	
 	if popup != nil then
 		print_popup()
