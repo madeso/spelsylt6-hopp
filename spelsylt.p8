@@ -665,13 +665,14 @@ function setup_carrots()
 				c = add(crts, {})
 				c.x = x*8
 				c.y = y*8
+				c.an = rnd()
 			end
 		end
 	end
 end
 
 function draw_car(c)
-	spr(17, c.x, c.y)
+	spr(17, c.x, c.y+sin(car_tim+c.an)*2)
 end
 
 function draw_carrots()
@@ -681,9 +682,14 @@ function draw_carrots()
 	end
 end
 
+car_tim = 0
 function pickup_carrots()
 	local r=nil
 	local c
+	car_tim += dt*0.75
+	if car_tim > 1 then
+		car_tim -= 1
+	end
 	for i=1,#crts
 	do
 		local dx, dy
