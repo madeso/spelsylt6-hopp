@@ -40,3 +40,11 @@ day 5: playing looping music randomly, newlines and layout in dialog popup
 day 6: fixed euclidian distance calculation overflowing by switching to manhattan distance. also implemented most of the story and level scripting
 
 ![day 6](gifs/day_6.gif)
+
+day 7: many smaller fixes:
+* made happy background darker so player can be seen
+* added content warning
+* added carrot icon to the hud
+* jumping hares at end screen
+* animating the carrots
+* english translation from a menu. things are obviously lost in translation but it's playable now for non-swedes
