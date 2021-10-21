@@ -8,6 +8,7 @@ __lua__
 -- sp = sprite index
 -- flp = flip
 demo_mode = false
+display_cw = true
 
 function _init()
 	dbg = ""
@@ -263,6 +264,12 @@ function _update()
 		blink = (blink + 1)%10
 	end
 	
+	if display_cw then
+		if btnp(❎) then
+			display_cw = false
+		end
+	end
+	
 	if title_index != nil then
 		camera(0,0)
 		if btnp(❎) then
@@ -312,6 +319,16 @@ function bkg(t, spd)
 end
 
 function _draw()
+	if display_cw then
+		cls(0)
+		sweprint("varning: inneh…ller", 10, 40, 7)
+		sweprint("referenser till sj∧lvmord", 10, 50, 7)
+		
+		if blink % 2 == 0 then
+			sweprint("❎", 60, 110, 14)
+		end
+		return
+	end
 	if title_index != nil then
 		cls(0)
 		if title_index == 42 then
