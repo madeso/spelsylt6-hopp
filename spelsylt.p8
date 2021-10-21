@@ -318,6 +318,8 @@ function bkg(t, spd)
 	map(t, 48, xx+128, 0)
 end
 
+end_jump = 0
+
 function _draw()
 	if display_cw then
 		cls(0)
@@ -335,6 +337,17 @@ function _draw()
 			sweprint("tack f░r att du spelat", 20, 25, 7)
 			sweprint("hararna fr…n", 20, 40, 7)
 			sweprint("hoppsl░sa", 70, 40, 10)
+			
+			end_jump += dt * 0.75
+			if end_jump > 1 then
+				end_jump -= 1
+			end
+			spr(3, 12, 50 + sin(end_jump) * 10)
+			spr(3, 110, 50 + cos(end_jump) * 10, 1, 1, true)
+			
+			for i=0, 3 do
+				spr(17, 35+i*16, 57)
+			end
 		else
 			sweprint("hararna fr…n hoppl░sa", 20, 40, 7)
 		end
@@ -363,10 +376,10 @@ function _draw()
 	draw_carrots()
 	draw_harar()
 	spr(pl.sp, pl.x-(8-pl.w)/2, pl.y+o,1,1,pl.flp)
-	--if p_car > 0 then
+	if p_car > 0 then
 		spr(17, 2+cam.cx, 0)
-		print(p_car, 2+5+cam.cx, 0, 7)
-	--end
+		print(p_car, 2+8+cam.cx, 2, 7)
+	end
 	
 	if popup != nil then
 		print_popup()
