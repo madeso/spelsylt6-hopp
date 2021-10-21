@@ -64,7 +64,7 @@ function update_story()
 	elseif scn == 4 then
 		bkg_color = bkg_blue
 		if pl.x > 990 then
-			popup = "nu kan jag ge mor░tter\ntill mina harv∧nner!"
+			popup = 1
 			scn = 5
 		end
 	elseif scn == 5 then
@@ -102,8 +102,8 @@ function lvl_init()
 	if demo_mode then
 		har_text =
 		{
-			"hej kodsnack!\nh░r …lar h∧rska!",
-			"spelsylt e najs"
+			2,
+			3
 		}
 		rand_music()
 		clear_upper()
@@ -120,8 +120,8 @@ function lvl_init()
 			msc_sad()
 			har_text =
 			{
-				"hoppet har ░vergett oss",
-				"inte du ocks…\n:("
+				4,
+				5
 			}
 			clear_upper()
 			clear_right()
@@ -129,8 +129,8 @@ function lvl_init()
 			msc_sad()
 			har_text =
 			{
-				"varf░r forts∧tta leva\nutan hopp?",
-				"inga mor░tter, inget hopp\ninget hopp, inget liv"
+				6,
+				7
 			}
 			clear_upper()
 			clear_right()
@@ -138,8 +138,8 @@ function lvl_init()
 			msc_sad()
 			har_text =
 			{
-				"vi borde hoppa mer!",
-				"fungerar ❎  f░r dig?"
+				8,
+				9
 			}
 			clear_upper()
 		elseif scn == 4 then
@@ -147,9 +147,9 @@ function lvl_init()
 			bkg_color = bkg_blue
 			har_text =
 			{
-				"kan du hitta\nmor░terna?",
-				"hittar du mor░tter\nblir allt bra!",
-				"hej kompis ♥\njag tror p… dig!"
+				10,
+				11,
+				12
 			}
 		end
 	end
@@ -250,6 +250,7 @@ end
 function sfx_fall()
 	sfx(17)
 end
+
 -->8
 -- update and draw
 
@@ -323,20 +324,20 @@ end_jump = 0
 function _draw()
 	if display_cw then
 		cls(0)
-		sweprint("varning: inneh…ller", 10, 40, 7)
-		sweprint("referenser till sj∧lvmord", 10, 50, 7)
+		sweprint(13, 10, 40, 7)
+		sweprint(14, 10, 50, 7)
 		
 		if blink % 2 == 0 then
-			sweprint("❎", 60, 110, 14)
+			print("❎", 60, 110, 14)
 		end
 		return
 	end
 	if title_index != nil then
 		cls(0)
 		if title_index == 42 then
-			sweprint("tack f░r att du spelat", 20, 25, 7)
-			sweprint("hararna fr…n", 20, 40, 7)
-			sweprint("hoppsl░sa", 70, 40, 10)
+			sweprint(15, 20, 25, 7)
+			sweprint(16, 20, 40, 7)
+			sweprint(17, 70, 40, 10)
 			
 			end_jump += dt * 0.75
 			if end_jump > 1 then
@@ -349,16 +350,16 @@ function _draw()
 				spr(17, 35+i*16, 57)
 			end
 		else
-			sweprint("hararna fr…n hoppl░sa", 20, 40, 7)
+			sweprint(18, 20, 40, 7)
 		end
 		
 
-		sweprint("av gustav \"madeso\" jansson", 15, 70, 7)
+		sweprint(19, 15, 70, 7)
 		
-		sweprint("med musik av stefan forsberg", 10, 80, 7)
+		sweprint(20, 10, 80, 7)
 		
 		if blink % 2 == 0 then
-			sweprint("❎", 60, 110, 14)
+			print("❎", 60, 110, 14)
 		end
 		return
 	end
@@ -410,7 +411,7 @@ function print_popup()
 	end
 	
 	local py = 22
-	if hasn(popup) then
+	if hasn(get_text(popup)) then
 		py -= 4
 	end
 	sweprint(popup, l+16, py, 7)
@@ -430,9 +431,10 @@ function hasn(text)
 	return false
 end
 
-function sweprint(text, ax, y, cc)
+function sweprint(texti, ax, y, cc)
 	local ox = ax
 	local x = ax
+	local text = get_text(texti)
 
 	for i=0, #text-1 do
 		local c = sub(text, i+1, i+1)
@@ -468,55 +470,36 @@ function sweprint(text, ax, y, cc)
 	end
 end
 -->8
--- collision
+-- languages
 
--- flag 0: stand on
--- flag 1: unable to jump thru
+lang =
+{
+	"nu kan jag ge mor░tter\ntill mina harv∧nner!",
+	"hej kodsnack!\nh░r …lar h∧rska!",
+	"spelsylt e najs",
+	"hoppet har ░vergett oss",
+	"inte du ocks…\n:(",
+	"varf░r forts∧tta leva\nutan hopp?",
+	"inga mor░tter, inget hopp\ninget hopp, inget liv",
+	"vi borde hoppa mer!",
+	"fungerar ❎  f░r dig?",
+	"kan du hitta\nmor░terna?",
+	"hittar du mor░tter\nblir allt bra!",
+	"hej kompis ♥\njag tror p… dig!",
+	"varning: inneh…ller",
+	"referenser till sj∧lvmord",
+	"tack f░r att du spelat",
+	"hararna fr…n",
+	"hoppsl░sa",
+	"hararna fr…n hoppl░sa",
+	"av gustav \"madeso\" jansson",
+	"med musik av stefan forsberg",
+	
+}
 
--- object to collide with
---  needs x,y,w,h
--- aim movement dir, numpad val
--- flag to check for
-function map_col(o,aim,f)
-	local x=o.x local y=o.y
-	local w=o.w local h=o.h
-
-	-- x1y1 top left
-	-- x2y2 bottom right	
-	local x1=0 local y1=0
-	local x2=0 local y2=0
-	
-	if aim==4 then
-		x1=x-1   y1=y
-		x2=x     y2=y+h-1
-	elseif aim==6 then
-		x1=x+w y1=y
-		x2=x+w+1   y2=y+h-1
-	elseif aim==8 then
-		x1=x+2   y1=y-1
-		x2=x+w-3 y2=y
-	elseif aim==2 then
-		x1=x+1   y1=y+h
-		x2=x+w-2 y2=y+h
-	end
-	
-	-- convert pix to tile
-	x1/=8 y1/=8
-	x2/=8 y2/=8
-	
-	-- fget - get flag of tile
-	-- mget - get map tile
-	if fget(mget(x1,y1), f)
-	or fget(mget(x1,y2), f)
-	or fget(mget(x2,y1), f)
-	or fget(mget(x2,y2), f) then
-		return true
-	else
-		return false
-	end
-	
+function get_text(id)
+	return lang[id]
 end
-
 -->8
 -- player
 
@@ -627,6 +610,55 @@ function player_animate()
 		anim(pl, {1, 2}, .5)
 	end
 end
+
+
+-- flag 0: stand on
+-- flag 1: unable to jump thru
+
+-- object to collide with
+--  needs x,y,w,h
+-- aim movement dir, numpad val
+-- flag to check for
+function map_col(o,aim,f)
+	local x=o.x local y=o.y
+	local w=o.w local h=o.h
+
+	-- x1y1 top left
+	-- x2y2 bottom right	
+	local x1=0 local y1=0
+	local x2=0 local y2=0
+	
+	if aim==4 then
+		x1=x-1   y1=y
+		x2=x     y2=y+h-1
+	elseif aim==6 then
+		x1=x+w y1=y
+		x2=x+w+1   y2=y+h-1
+	elseif aim==8 then
+		x1=x+2   y1=y-1
+		x2=x+w-3 y2=y
+	elseif aim==2 then
+		x1=x+1   y1=y+h
+		x2=x+w-2 y2=y+h
+	end
+	
+	-- convert pix to tile
+	x1/=8 y1/=8
+	x2/=8 y2/=8
+	
+	-- fget - get flag of tile
+	-- mget - get map tile
+	if fget(mget(x1,y1), f)
+	or fget(mget(x1,y2), f)
+	or fget(mget(x2,y1), f)
+	or fget(mget(x2,y2), f) then
+		return true
+	else
+		return false
+	end
+	
+end
+
 -->8
 -- utils
 
