@@ -9,6 +9,7 @@ __lua__
 -- flp = flip
 demo_mode = false
 display_cw = true
+use_eng = false
 
 function _init()
 	dbg = ""
@@ -472,7 +473,7 @@ end
 -->8
 -- languages
 
-lang =
+lang_swe =
 {
 	"nu kan jag ge mor░tter\ntill mina harv∧nner!",
 	"hej kodsnack!\nh░r …lar h∧rska!",
@@ -493,12 +494,39 @@ lang =
 	"hoppsl░sa",
 	"hararna fr…n hoppl░sa",
 	"av gustav \"madeso\" jansson",
-	"med musik av stefan forsberg",
-	
+	"med musik av stefan forsberg"
+}
+
+lang_eng =
+{
+	"now i can give carrots\nto my friends!",
+	"hej kodsnack!\nh░r …lar h∧rska!",
+	"spelsylt e najs",
+	"hope has left us",
+	"please don't...\n:(",
+	"why live if you\ncan't jump??",
+	"no carrots no hope\nno hope not life",
+	"we should jump more!",
+	"is your ❎  working?",
+	"can you find carrots?",
+	"if you find carrots\nall is good!",
+	"hello friend ♥\ngood luck!",
+	"content warning!!!",
+	"contains suicide",
+	"thanks for playing",
+	"  hares from",
+	"happyland",
+	"hares from city of no hope",
+	"by gustav \"madeso\" jansson",
+	"with music by stefan forsberg"
 }
 
 function get_text(id)
-	return lang[id]
+	if use_eng then
+		return lang_eng[id]
+	else
+		return lang_swe[id]
+	end
 end
 -->8
 -- player
