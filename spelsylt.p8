@@ -11,7 +11,20 @@ demo_mode = false
 display_cw = true
 use_eng = false
 
+function add_lang()
+	local t = "english please!"
+	if use_eng then
+		t = "svenska tack!"
+	end
+	menuitem(1, t, function()
+		use_eng = not use_eng
+		add_lang()
+		return false
+	end)
+end
+
 function _init()
+	add_lang()
 	dbg = ""
 	scn = 0
 	bkg_blue = 12
