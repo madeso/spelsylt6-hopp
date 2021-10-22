@@ -16,7 +16,7 @@ new_game_plus_option = false
 function add_new_game_plus_option()
 	new_game_plus_option = true
 	
-	local t = "play new game+"
+	local t = "play new game★"
 	if new_game_plus then
 		t = "play normal game"
 	end
