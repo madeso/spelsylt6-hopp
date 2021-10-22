@@ -176,11 +176,19 @@ function lvl_init()
 			clear_right()
 		elseif scn == 3 then
 			msc_sad()
-			har_text =
-			{
-				8,
-				9
-			}
+			if not new_game_plus then
+				har_text =
+				{
+					8,
+					9
+				}
+			else
+				har_text =
+				{
+					8,
+					21
+				}
+			end
 			clear_upper()
 		elseif scn == 4 then
 			msc_happy()
@@ -537,26 +545,48 @@ end
 
 lang_swe =
 {
+	-- 1
 	"nu kan jag ge mor░tter\ntill mina harv∧nner!",
+	-- 2
 	"hej kodsnack!\nh░r …lar h∧rska!",
+	-- 3
 	"spelsylt e najs",
+	-- 4
 	"hoppet har ░vergett oss",
+	-- 5
 	"inte du ocks…\n:(",
+	-- 6
 	"varf░r forts∧tta leva\nutan hopp?",
+	-- 7
 	"inga mor░tter, inget hopp\ninget hopp, inget liv",
+	-- 8
 	"vi borde hoppa mer!",
+	-- 9
 	"fungerar ❎  f░r dig?",
+	-- 10
 	"kan du hitta\nmor░terna?",
+	-- 11
 	"hittar du mor░tter\nblir allt bra!",
+	-- 12
 	"hej kompis ♥\njag tror p… dig!",
+	-- 13
 	"varning: inneh…ller",
+	-- 14
 	"referenser till sj∧lvmord",
+	-- 15
 	"tack f░r att du spelat",
+	-- 16
 	"hararna fr…n",
+	-- 17
 	"hoppsl░sa",
+	-- 18
 	"hararna fr…n hoppl░sa",
+	-- 19
 	"av gustav \"madeso\" jansson",
-	"med musik av stefan forsberg"
+	-- 20
+	"med musik av stefan forsberg",
+	-- 21
+	"du beh░ver ju inte ❎"
 }
 
 lang_eng =
@@ -580,7 +610,8 @@ lang_eng =
 	"happyland",
 	"hares from city of no hope",
 	"by gustav \"madeso\" jansson",
-	"with music by stefan forsberg"
+	"with music by stefan forsberg",
+	"you don't need any ❎"
 }
 
 function get_text(id)
