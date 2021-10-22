@@ -48,3 +48,8 @@ day 7: many smaller fixes:
 * jumping hares at end screen
 * animating the carrots
 * english translation from a menu. things are obviously lost in translation but it's playable now for non-swedes
+
+day 8: day game+ and more minor things like animating text and the end
+also exported the game and uploaded the (hopefully) final build to itch
+
+![pico-8 cart](hararna-fran-hopplosa.p8.png)
