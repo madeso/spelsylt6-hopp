@@ -1,7 +1,8 @@
 pico-8 cartridge // http://www.pico-8.com
 version 33
 __lua__
--- main
+-- hararna fran hopplosa
+-- by gustav "madeso" jansson
 
 -- abbreviations
 -- pl = player
