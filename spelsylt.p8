@@ -273,6 +273,11 @@ function _update()
 	dt=t - _lastt
 	_lastt=t
 	
+	text_anim += dt*0.9
+	if text_anim > 1 then
+		text_anim -= 1
+	end
+	
 	blinkt += dt
 	if blinkt>0.3 then
 		blinkt -= 0.3
@@ -351,7 +356,7 @@ function _draw()
 		if title_index == 42 then
 			sweprint(15, 20, 25, 7)
 			sweprint(16, 20, 40, 7)
-			sweprint(17, 70, 40, 10)
+			sweprint(17, 70, 40, 10, true)
 			
 			end_jump += dt * 0.75
 			if end_jump > 1 then
@@ -445,7 +450,9 @@ function hasn(text)
 	return false
 end
 
-function sweprint(texti, ax, y, cc)
+text_anim = 0
+
+function sweprint(texti, ax, y, cc, animate)
 	local ox = ax
 	local x = ax
 	local text = get_text(texti)
@@ -454,28 +461,32 @@ function sweprint(texti, ax, y, cc)
 		local c = sub(text, i+1, i+1)
 		local d = 0
 		local step = true
+		local dy = 0
+		if animate then
+			dy = cos(text_anim+0.15*i)*1.5-0.5
+		end
 		if c=="…" then
-			print("a", x, y, cc)
+			print("a", x, y+dy, cc)
 			d = 1
 		elseif c=="∧" then
-			print("a", x, y, cc)
+			print("a", x, y+dy, cc)
 			d = 2
 		elseif c=="░" then
-			print("o", x, y, cc)
+			print("o", x, y+dy, cc)
 			d = 2
 		elseif c=="\n" then
 			x = ox
 			y += 8
 			step = false
 		else
-			print(c, x, y, cc)
+			print(c, x, y+dy, cc)
 		end
 		
 		if d==1 then
-			print(".", x, y-6, cc)
+			print(".", x, y-6+dy, cc)
 		elseif d==2 then
-			print(".", x-1, y-6, cc)
-			print(".", x+1, y-6, cc)
+			print(".", x-1, y-6+dy, cc)
+			print(".", x+1, y-6+dy, cc)
 		end
 		
 		if step then
