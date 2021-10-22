@@ -10,6 +10,28 @@ __lua__
 demo_mode = false
 display_cw = true
 use_eng = false
+new_game_plus = false
+new_game_plus_option = false
+
+function add_new_game_plus_option()
+	new_game_plus_option = true
+	
+	local t = "play new game+"
+	if new_game_plus then
+		t = "play normal game"
+	end
+
+	menuitem(2, t, function()
+		new_game_plus = not new_game_plus
+		add_new_game_plus_option()
+		
+		if new_game_plus then
+			_init()
+		end
+		
+		return false
+	end)
+end
 
 function add_lang()
 	local t = "english please!"
@@ -25,6 +47,9 @@ end
 
 function _init()
 	add_lang()
+	if new_game_plus_option then
+		add_new_game_plus_option()
+	end
 	dbg = ""
 	scn = 0
 	bkg_blue = 12
@@ -86,6 +111,7 @@ function update_story()
 		if pl.x < 160 then
 			title_index = 42
 			scn = 6
+			add_new_game_plus_option()
 		end
 	end
 end
@@ -366,7 +392,11 @@ function _draw()
 			spr(3, 110, 50 + cos(end_jump) * 10, 1, 1, true)
 			
 			for i=0, 3 do
-				spr(17, 35+i*16, 57)
+				if not new_game_plus then
+					spr(17, 35+i*16, 57)
+				else
+					print("★", 35+i*16, 57, 10)
+				end
 			end
 		else
 			sweprint(18, 20, 40, 7)
@@ -396,9 +426,17 @@ function _draw()
 	draw_carrots()
 	draw_harar()
 	spr(pl.sp, pl.x-(8-pl.w)/2, pl.y+o,1,1,pl.flp)
+	
+	local cax = 0
+	
+	if new_game_plus then
+		print("★", 2+cam.cx, 2, 10)
+		cax = 7
+	end
+	
 	if p_car > 0 then
-		spr(17, 2+cam.cx, 0)
-		print(p_car, 2+8+cam.cx, 2, 7)
+		spr(17, 2+cam.cx+cax, 0)
+		print(p_car, 2+8+cam.cx+cax, 2, 7)
 	end
 	
 	if popup != nil then
@@ -592,7 +630,11 @@ function player_update()
 	end
 	
 	-- jumping x
-	if btn(❎) and can_jump() and
+	local button_down = btn(❎)
+	if new_game_plus then
+		button_down = true
+	end
+	if button_down and can_jump() and
 	pl.sland then
 		pl.dy = -pl.jump
 		pl.sland = false
